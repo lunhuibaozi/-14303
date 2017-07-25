@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2017. Shanghai Zhenhui Information Technology Co,. ltd.
+  ~ All rights are reserved.
+  -->
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql,oracle"/>
+    <changeSet id="201707210001" author="baoming.hu">
+        <createTable tableName="atl_department">
+            <column name="id" type="bigint">
+                <constraints
+                        nullable="false"
+                        primaryKey="true"
+                        primaryKeyName="pk_atl_department_id"/>
+            </column>
+            <column name="departement_name" type="varchar(250)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="idx_uq_department_username"/>
+            </column>
+            <column name="code" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="department_status" type="int">
+                <constraints nullable="false"   />
+            </column>
+            <column name="createdDate" type="timestamp">
+                <constraints nullable="false"   />
+            </column>
+
+        </createTable>
+        <createTable tableName="atl_user">
+            <column name="id" type="bigint">
+                <constraints
+                        nullable="false"
+                        primaryKey="true"
+                        primaryKeyName="pk_atl_user_id"/>
+            </column>
+            <column name="departement_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="pk_atl_department_id" references="atl_department(id)"/>
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="idx_uq_user_username"/>
+            </column>
+            <column name="password" type="varchar(60)">
+                <constraints nullable="false"   />
+            </column>
+            <column name="full_name" type="varchar(100)">
+                <constraints nullable="true"   />
+            </column>
+
+        </createTable>
+
+
+
+
+    </changeSet>
+
+</databaseChangeLog>
